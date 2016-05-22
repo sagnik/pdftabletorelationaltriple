@@ -1,9 +1,5 @@
 Tabular data extraction in PDFs
 -------------------------------
-### Note
-
-Will be moved to a public repo https://github.com/sagnik/pdftables-relationaltriples in a few days.
-
 ### Example
 
 For an example, see src/test/resources/images/10.1.1.106.5870-Table-4.png.
