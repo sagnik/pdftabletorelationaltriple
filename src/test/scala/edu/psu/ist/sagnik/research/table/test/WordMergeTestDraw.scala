@@ -44,11 +44,43 @@ class WordMergeTestDraw extends FunSpec{
 
   }
 
+  def createImage(jsonLoc:String, imageLoc:String):Unit={
+    val mytable=AllenAIDataConversion.
+      allenAITableToMyTable(
+        AllenAIDataConversion.jsonTocaseClasses(
+          AllenAIDataConversion.jsonToString(jsonLoc
+          )
+        )
+      )
+    mytable match{
+      case Some(properTable)=>{
+        val interimTable=CombineWords.wordMergedTable(properTable)
+        //drawing image
+        val sourceImage = new File(imageLoc);
+        val original = ImageIO.read(sourceImage);
+        val newimage = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
+        val graph=newimage.createGraphics()
+        graph.drawImage(original,0,0,null)
+        graph.setColor(Color.GREEN)
+        interimTable.textsegments.foreach(x=>graph.draw(new java.awt.Rectangle(
+          x.bb.x1.toInt,x.bb.y1.toInt,(x.bb.x2-x.bb.x1).toInt,(x.bb.y2-x.bb.y1).toInt)))
+        graph.dispose()
+        ImageIO.write(newimage,"png",new File(imageLoc.substring(0,imageLoc.length-4)+"-wordmerged.png"))
+      }
+      case None=>{println ("could not merge words in the table");return}
+    }
+
+  }
+
   describe("testing if word merging is correct") {
     it("should print the merged cells from a table") {
-      val alljsons=DataLocation.recursiveListFiles(new File("/Users/schoudhury/com-sc-papers/nlp-data/"),"(?=.*Table)(?=.*json)".r)
+      //val alljsons=DataLocation.recursiveListFiles(new File("/Users/schoudhury/com-sc-papers/nlp-data/"),"(?=.*Table)(?=.*json)".r)
       //println(alljsons.length)
-      alljsons.foreach(x=>{println(x.getAbsolutePath);createImage(x.getAbsolutePath)})
+      //alljsons.foreach(x=>{println(x.getAbsolutePath);createImage(x.getAbsolutePath)})
+      val jsonLoc=DataLocation.jsonloc
+      val imageLoc=DataLocation.imageloc
+      createImage(jsonLoc,imageLoc)
+
     }
   }
 }
