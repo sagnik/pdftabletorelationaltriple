@@ -42,7 +42,8 @@ class HeaderPathTest extends FunSpec {
               println("\n-----------------\ndata cells\n-----------------\n")
               wft.dcs.foreach(x=>println(s"${x.tg.content} rowpath: ${x.rowpath.map(a=>a.tg.content)}" +
                 s"colpath: ${x.colpath.map(a=>a.tg.content)}"))
-              scala.tools.nsc.io.File(DataLocation.jsonloc.split(".json")(0)+"-wft.json")
+              println(DataLocation.jsonloc.substring(0,DataLocation.jsonloc.length-5)+"-wft.json")
+              scala.tools.nsc.io.File(DataLocation.jsonloc.substring(0,DataLocation.jsonloc.length-5)+"-wft.json")
                 .writeAll(JSONFormatter.wftToJsonString(wft))
             }
             case None=>println("Could not convert given table to a well formed table")

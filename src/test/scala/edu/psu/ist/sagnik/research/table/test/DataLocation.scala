@@ -11,9 +11,9 @@ object DataLocation {
     //val jsonloc = "src/test/resources/jsons/10.1.1.106.5870-Table-4.json"
     //val jsonloc = "src/test/resources/jsons/10.1.1.159.3090-Table-7.json"
     //val jsonloc="src/test/resources/jsons/N10-1104-Table-1.json"
-    val jsonloc="/home/szr163/com-sc-papers/nlp-data/alltables/jsonsfortripleextraction-dir/C08-1033-Table-3.json"
+    val jsonloc="/home/sagnik/data/nlp-table-data/jsonsfortripleextraction-dir/C10-1112-Table-4.json"
 
-    val imageloc="/home/szr163/com-sc-papers/nlp-data/alltables/randpngs/C08-1033-Table-3.png"
+    val imageloc="/home/sagnik/data/nlp-table-data/randpngs/C10-1112-Table-4.png"
     import scala.util.matching.Regex
     def recursiveListFiles(f: File, r: Regex): Array[File] = {
         val these = f.listFiles

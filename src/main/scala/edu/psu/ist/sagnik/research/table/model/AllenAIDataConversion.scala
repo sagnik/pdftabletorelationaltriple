@@ -32,10 +32,10 @@ object AllenAIDataConversion {
             A(
               w.Text,
               Rectangle(
-                w.TextBB(0) - tablebb(0),
-                w.TextBB(1) - tablebb(1),
-                w.TextBB(2) - tablebb(0),
-                w.TextBB(3) - tablebb(1)
+                w.TextBB(0) - tablebb(0)+2, //shorteining the table
+                w.TextBB(1) - tablebb(1)+2,
+                w.TextBB(2) - tablebb(0)-2,
+                w.TextBB(3) - tablebb(1)-2
               )
             )),
           atable.Caption,

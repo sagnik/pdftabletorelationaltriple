@@ -10,8 +10,8 @@ and put a row number and column number making them "cells"*/
 object CellRenaming {
   def produceRowColNumbers(itable:IntermediateTable):Table={
 
-    val debug=true
-    println(itable.textsegments.length)
+    val debug=false
+    //println(itable.textsegments.length)
     val candidatecells=itable.textsegments.filterNot(x=>
       hitsRightExists(x,itable.textsegments)||
         hitsDownExists(x,itable.textsegments))
@@ -73,7 +73,7 @@ repeat the process for cu as well.
 */
 
   def roWColRecursive(l:List[B],accum:List[B],allwords:Seq[A]):List[B]={
-    val debug=true
+    val debug=false
     l match{
       case c::cs => {
         val c1 = returnHitCell(hitsLeft(c, allwords), accum, c, hitsLeft=true)
@@ -191,7 +191,7 @@ repeat the process for cu as well.
   }
   def hitsDownExists(c:TextGeneric,l:Seq[TextGeneric]):Boolean={
     val extrect=c.bb.copy(y2=c.bb.y2+500)
-
+    /*
     if (Rectangle(271.753f,59.76001f,293.547f,75.95001f).equals(c.bb)) {
       println(l.length)
       println(extrect);
@@ -199,7 +199,7 @@ repeat the process for cu as well.
       println(l.filter(x => x.bb != c.bb && Rectangle.rectInterSects(x.bb, extrect))
         .filter(x => c.bb.y2 < x.bb.y1))
     }
-
+    */
     l.filter(x=>x.bb!=c.bb && Rectangle.rectInterSects(x.bb,extrect))
       .filter(x=>c.bb.y2<x.bb.y1).nonEmpty
 

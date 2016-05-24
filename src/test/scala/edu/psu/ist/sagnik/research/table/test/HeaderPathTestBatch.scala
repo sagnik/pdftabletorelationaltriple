@@ -34,10 +34,10 @@ class HeaderPathTestBatch extends FunSpec {
       case Some(propertable) => {
         val interimtable = CombineWords.wordMergedTable(propertable)
         val table = CellRenaming.produceRowColNumbers(interimtable)
-        if(table.cells.length!=interimtable.textsegments.length) {
+        if(table.cells.length==interimtable.textsegments.length) {
           TabletoWFT.headerPathstoDataCells(table) match {
             case Some(wft) => {
-              scala.tools.nsc.io.File(jsonloc.split(".json")(0)+"-wft.json")
+              scala.tools.nsc.io.File(jsonloc.substring(0,jsonloc.length-5)+"-wft.json")
                 .writeAll(JSONFormatter.wftToJsonString(wft))
             }
             case None => println("Could not convert given table to a well formed table")
@@ -52,10 +52,10 @@ class HeaderPathTestBatch extends FunSpec {
   describe("testing if row column prediction is correct") {
     it("should print the rows and cols from a table") {
       //first delete all existing wft jsons.
-      DataLocation.recursiveListFiles(new File("/Users/schoudhury/com-sc-papers/nlp-data/demodata"),"(?=.*Table)(?=.*wft)(?=.*json)".r)
+      DataLocation.recursiveListFiles(new File("/home/sagnik/data/nlp-table-data/jsonsfortripleextraction-dir/"),"(?=.*Table)(?=.*wft)(?=.*json)".r)
         .foreach(x=>deleteFile(x.getAbsolutePath))
 
-      DataLocation.recursiveListFiles(new File("/Users/schoudhury/com-sc-papers/nlp-data/demodata"),"(?=.*Table)(?=.*json)".r)
+      DataLocation.recursiveListFiles(new File("/home/sagnik/data/nlp-table-data/jsonsfortripleextraction-dir/"),"(?=.*Table)(?=.*json)".r)
       .foreach(x=>{println(x.getAbsolutePath);RowHeaderPathTest(x.getAbsolutePath)})
     }
   }
