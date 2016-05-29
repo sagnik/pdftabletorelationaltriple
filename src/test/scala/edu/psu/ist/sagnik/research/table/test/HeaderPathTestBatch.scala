@@ -14,6 +14,8 @@ import org.scalatest.FunSpec
 
 class HeaderPathTestBatch extends FunSpec {
 
+  val blackList=List("P10-1143-Table-2.json","E03-1023-Table-1.json","J05-4002-Table-1.json","P06-1100-Table-3.json")
+
   def deleteFile(path: String) = {
     val fileTemp = new File(path)
     if (fileTemp.exists) {
@@ -34,16 +36,15 @@ class HeaderPathTestBatch extends FunSpec {
       case Some(propertable) => {
         val interimtable = CombineWords.wordMergedTable(propertable)
         val table = CellRenaming.produceRowColNumbers(interimtable)
-        if(table.cells.length==interimtable.textsegments.length) {
-          TabletoWFT.headerPathstoDataCells(table) match {
-            case Some(wft) => {
-              scala.tools.nsc.io.File(jsonloc.substring(0,jsonloc.length-5)+"-wft.json")
-                .writeAll(JSONFormatter.wftToJsonString(wft))
-            }
-            case None => println("Could not convert given table to a well formed table")
-          }
-        }
-        else println("Failed to generate row col header from intermediate table")
+        if(table.cells.length!=interimtable.textsegments.length)
+          println("progressing with possible errors")
+        TabletoWFT.headerPathstoDataCells(table) match {
+          case Some(wft) => {
+            scala.tools.nsc.io.File(jsonloc.substring(0,jsonloc.length-5)+"-wft.json")
+              .writeAll(JSONFormatter.wftToJsonString(wft))
+           }
+           case None => println("Could not convert given table to a well formed table")
+         }
       }
       case None => println("Failed to generate AllenAI table")
     }
@@ -52,10 +53,11 @@ class HeaderPathTestBatch extends FunSpec {
   describe("testing if row column prediction is correct") {
     it("should print the rows and cols from a table") {
       //first delete all existing wft jsons.
-      DataLocation.recursiveListFiles(new File("/home/sagnik/data/nlp-table-data/jsonsfortripleextraction-dir/"),"(?=.*Table)(?=.*wft)(?=.*json)".r)
+      DataLocation.recursiveListFiles(new File("/home/sagnik/data/nlp-table-data/randjsons/"),"(?=.*Table)(?=.*wft)(?=.*json)".r)
         .foreach(x=>deleteFile(x.getAbsolutePath))
 
-      DataLocation.recursiveListFiles(new File("/home/sagnik/data/nlp-table-data/jsonsfortripleextraction-dir/"),"(?=.*Table)(?=.*json)".r)
+      DataLocation.recursiveListFiles(new File("/home/sagnik/data/nlp-table-data/randjsons/"),"(?=.*Table)(?=.*json)".r)
+        .filterNot(x=>blackList.exists(y=>x.getAbsolutePath.contains(y)))
       .foreach(x=>{println(x.getAbsolutePath);RowHeaderPathTest(x.getAbsolutePath)})
     }
   }

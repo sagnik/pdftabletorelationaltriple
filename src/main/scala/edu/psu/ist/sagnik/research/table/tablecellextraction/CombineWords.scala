@@ -33,7 +33,7 @@ object CombineWords {
 
   /* this function will be changed with linear chain CRFs to facilitate merging*/
   def horizontalMerge(words: Seq[A], pdlines: Option[Seq[Int]],f:Seq[A]=>Float):Seq[A] = {
-    val threshold=f(words)
+    val threshold=f(words)+4f //added because we are reducing the original boundaries by 2.
     println(s"The horizontal distance threshold for merging words is ${threshold}")
     merge(words, Nil, threshold)
   }
@@ -53,8 +53,9 @@ object CombineWords {
   }
 
   def isSubSuperscript(left:A,right:A):Boolean=(right.bb.y2-right.bb.y1)<0.75*(left.bb.y2-left.bb.y1)&&
-    right.bb.x1-left.bb.x2<2 && right.bb.x1-left.bb.x2>(-1) && //very close horizontally but to the right
-    (left.bb.y2-right.bb.y1>0 || left.bb.y1-right.bb.y2>0) //subscript or superscrpt
+    right.bb.x1-left.bb.x2<6 &&
+    right.bb.x1-left.bb.x2>0 && //very close horizontally but to the right
+    (right.bb.y1>left.bb.y2 || right.bb.y2>left.bb.y1) //subscript or superscrpt
 
 
   def getMergingElement(x:A,words:Seq[A],threshold:Float):Option[(A,A)]={
