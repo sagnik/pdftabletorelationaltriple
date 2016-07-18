@@ -1,6 +1,6 @@
-package edu.psu.ist.sagnik.research.table.tripleextraction
+package edu.psu.sagnik.research.table.tripleextraction
 
-import edu.psu.ist.sagnik.research.table.model.{UnClassifiedCell, Table}
+import edu.psu.sagnik.research.table.model.{UnClassifiedCell, Table}
 
 /**
  * Created by schoudhury on 8/21/15.

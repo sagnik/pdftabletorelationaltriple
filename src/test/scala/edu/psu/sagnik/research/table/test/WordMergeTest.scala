@@ -1,8 +1,8 @@
-package edu.psu.ist.sagnik.research.table.test
+package edu.psu.sagnik.research.table.test
 
-import edu.psu.ist.sagnik.research.table.tablecellextraction.CombineWords
+import edu.psu.sagnik.research.table.tablecellextraction.CombineWords
 import org.scalatest.FunSpec
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
 
 /**
  * Created by schoudhury on 8/19/15.
@@ -14,7 +14,7 @@ class WordMergeTest extends FunSpec{
       val mytable=AllenAIDataConversion.
         allenAITableToMyTable(
           AllenAIDataConversion.jsonTocaseClasses(
-            AllenAIDataConversion.jsonToString(DataLocation.jsonloc
+            AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
           )
         )

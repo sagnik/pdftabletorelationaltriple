@@ -1,6 +1,6 @@
-package edu.psu.ist.sagnik.research.table.tablecellextraction
+package edu.psu.sagnik.research.table.tablecellextraction
 
-import edu.psu.ist.sagnik.research.table.model.{Rectangle, TextGeneric}
+import edu.psu.sagnik.research.table.model.{Rectangle, TextGeneric}
 
 /**
  * Created by schoudhury on 8/20/15.

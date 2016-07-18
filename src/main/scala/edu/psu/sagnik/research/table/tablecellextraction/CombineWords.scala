@@ -1,4 +1,4 @@
-package edu.psu.ist.sagnik.research.table.tablecellextraction
+package edu.psu.sagnik.research.table.tablecellextraction
 
 /**
  * Created by schoudhury on 8/13/15.
@@ -17,7 +17,7 @@ or produce a JSON file with the case class schema in model.IntermediateTable. Fo
 see model.AllenAIDataConversion
 */
 
-import edu.psu.ist.sagnik.research.table.model.{IntermediateTable, Rectangle, TextGeneric}
+import edu.psu.sagnik.research.table.model.{IntermediateTable, Rectangle, TextGeneric}
 
 
 

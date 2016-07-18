@@ -1,4 +1,4 @@
-package edu.psu.ist.sagnik.research.table.model
+package edu.psu.sagnik.research.table.model
 
 import org.json4s.native.JsonMethods._
 

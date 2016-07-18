@@ -1,6 +1,6 @@
-package edu.psu.ist.sagnik.research.table.test
+package edu.psu.sagnik.research.table.test
 
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
 import org.scalatest.FunSpec
 
 /**
@@ -9,7 +9,7 @@ import org.scalatest.FunSpec
 class PrintInputJSONTest extends FunSpec {
   describe("testing whether the input has been parsed properly") {
     it("should print the words from a table.") {
-      val words=AllenAIDataConversion.jsonTocaseClasses(AllenAIDataConversion.jsonToString(DataLocation.jsonloc)).ImageText
+      val words=AllenAIDataConversion.jsonTocaseClasses(AllenAIDataConversion.jsonToString(DataLocation.jsonLoc)).ImageText
       words match{
         case Some(words)=> words.foreach(w=>println(s"word: ${w.Text} bb: ${w.TextBB}"))
         case None => println{"no words in table"}

@@ -1,4 +1,4 @@
-organization := "edu.psu.ist.sagnik.research"
+organization := "edu.psu.sagnik.research"
 
 name := "pdftables-relationaltriple"
 

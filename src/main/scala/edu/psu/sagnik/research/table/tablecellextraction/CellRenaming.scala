@@ -1,10 +1,10 @@
-package edu.psu.ist.sagnik.research.table.tablecellextraction
+package edu.psu.sagnik.research.table.tablecellextraction
 
 /**
  * Created by schoudhury on 8/18/15.
  */
 
-import edu.psu.ist.sagnik.research.table.model._
+import edu.psu.sagnik.research.table.model._
 /*We assume that the intermediate table has text blocks (TextGeneric) that are equivalent to cells. We are going to take these
 and put a row number and column number making them "cells"*/
 object CellRenaming {

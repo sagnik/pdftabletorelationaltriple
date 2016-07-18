@@ -1,8 +1,8 @@
-package edu.psu.ist.sagnik.research.table.test
-import edu.psu.ist.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
-import edu.psu.ist.sagnik.research.table.tripleextraction.CriticalCell
+package edu.psu.sagnik.research.table.test
+import edu.psu.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
+import edu.psu.sagnik.research.table.tripleextraction.CriticalCell
 import org.scalatest.FunSpec
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
 
 /**
  * Created by schoudhury on 8/21/15.
@@ -14,7 +14,7 @@ class CritiCalCellTest extends FunSpec {
       val mytable = AllenAIDataConversion.
         allenAITableToMyTable(
           AllenAIDataConversion.jsonTocaseClasses(
-            AllenAIDataConversion.jsonToString(DataLocation.jsonloc
+            AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
           )
         )

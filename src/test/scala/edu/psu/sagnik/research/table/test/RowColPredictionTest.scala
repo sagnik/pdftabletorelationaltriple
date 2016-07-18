@@ -1,7 +1,7 @@
-package edu.psu.ist.sagnik.research.table.test
+package edu.psu.sagnik.research.table.test
 
-import edu.psu.ist.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
 import org.scalatest.FunSpec
 
 /**
@@ -13,7 +13,7 @@ class RowColPredictionTest extends FunSpec {
       val mytable = AllenAIDataConversion.
         allenAITableToMyTable(
           AllenAIDataConversion.jsonTocaseClasses(
-            AllenAIDataConversion.jsonToString(DataLocation.jsonloc
+            AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
           )
         )

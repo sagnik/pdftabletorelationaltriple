@@ -1,8 +1,8 @@
-package edu.psu.ist.sagnik.research.table.test
+package edu.psu.sagnik.research.table.test
 
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
-import edu.psu.ist.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
-import edu.psu.ist.sagnik.research.table.tripleextraction.TabletoWFT
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
+import edu.psu.sagnik.research.table.tripleextraction.TabletoWFT
 import org.scalatest.FunSpec
 
 /**
@@ -15,7 +15,7 @@ class HeaderPathTest extends FunSpec {
       val mytable = AllenAIDataConversion.
         allenAITableToMyTable(
           AllenAIDataConversion.jsonTocaseClasses(
-            AllenAIDataConversion.jsonToString(DataLocation.jsonloc
+            AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
           )
         )
@@ -29,7 +29,7 @@ class HeaderPathTest extends FunSpec {
             println(s"high error probability: ${table.cells.length}, ${interimtable.textsegments.length}")
           TabletoWFT.headerPathstoDataCells(table) match {
             case Some(wft)=> {
-              /*scala.tools.nsc.io.File(DataLocation.jsonloc.split(".json")(0)+"-wft.json")
+              /*scala.tools.nsc.io.File(DataLocation.jsonLoc.split(".json")(0)+"-wft.json")
                 .writeAll(JSONFormatter.wftToJsonString(wft))*/
 
               println("\n-----------------\ncaption\n-----------------\n")
@@ -45,8 +45,8 @@ class HeaderPathTest extends FunSpec {
               println("\n-----------------\ndata cells\n-----------------\n")
               wft.dcs.foreach(x=>println(s"${x.tg.content} rowpath: ${x.rowpath.map(a=>a.tg.content)}" +
                 s"colpath: ${x.colpath.map(a=>a.tg.content)}"))
-              println(DataLocation.jsonloc.substring(0,DataLocation.jsonloc.length-5)+"-wft.json")
-              scala.tools.nsc.io.File(DataLocation.jsonloc.substring(0,DataLocation.jsonloc.length-5)+"-wft.json")
+              println(DataLocation.jsonLoc.substring(0,DataLocation.jsonLoc.length-5)+"-wft.json")
+              scala.tools.nsc.io.File(DataLocation.jsonLoc.substring(0,DataLocation.jsonLoc.length-5)+"-wft.json")
                 .writeAll(JSONFormatter.wftToJsonString(wft))
             }
             case None=>println("Could not convert given table to a well formed table")

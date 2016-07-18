@@ -1,4 +1,4 @@
-package edu.psu.ist.sagnik.research.table.model
+package edu.psu.sagnik.research.table.model
 
 
 /**

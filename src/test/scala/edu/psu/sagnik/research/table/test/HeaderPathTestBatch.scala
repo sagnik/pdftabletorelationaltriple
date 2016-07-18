@@ -1,10 +1,10 @@
-package edu.psu.ist.sagnik.research.table.test
+package edu.psu.sagnik.research.table.test
 
 import java.io.File
 
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
-import edu.psu.ist.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
-import edu.psu.ist.sagnik.research.table.tripleextraction.TabletoWFT
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.tablecellextraction.{CellRenaming, CombineWords}
+import edu.psu.sagnik.research.table.tripleextraction.TabletoWFT
 import org.scalatest.FunSpec
 
 /**
@@ -23,11 +23,11 @@ class HeaderPathTestBatch extends FunSpec {
     }
   }
 
-  def RowHeaderPathTest(jsonloc:String): Unit ={
+  def RowHeaderPathTest(jsonLoc:String): Unit ={
     val mytable = AllenAIDataConversion.
       allenAITableToMyTable(
         AllenAIDataConversion.jsonTocaseClasses(
-          AllenAIDataConversion.jsonToString(jsonloc
+          AllenAIDataConversion.jsonToString(jsonLoc
           )
         )
       )
@@ -40,7 +40,7 @@ class HeaderPathTestBatch extends FunSpec {
           println("progressing with possible errors")
         TabletoWFT.headerPathstoDataCells(table) match {
           case Some(wft) => {
-            scala.tools.nsc.io.File(jsonloc.substring(0,jsonloc.length-5)+"-wft.json")
+            scala.tools.nsc.io.File(jsonLoc.substring(0,jsonLoc.length-5)+"-wft.json")
               .writeAll(JSONFormatter.wftToJsonString(wft))
            }
            case None => println("Could not convert given table to a well formed table")

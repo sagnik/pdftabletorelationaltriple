@@ -1,12 +1,12 @@
-package edu.psu.ist.sagnik.research.table.test
+package edu.psu.sagnik.research.table.test
 
 import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 
-import edu.psu.ist.sagnik.research.table.model.AllenAIDataConversion
-import edu.psu.ist.sagnik.research.table.tablecellextraction.CombineWords
+import edu.psu.sagnik.research.table.model.AllenAIDataConversion
+import edu.psu.sagnik.research.table.tablecellextraction.CombineWords
 import org.scalatest.FunSpec
 
 /**
@@ -16,11 +16,11 @@ import org.scalatest.FunSpec
 
 class WordMergeTestDraw extends FunSpec{
 
-  def createImage(jsonloc:String):Unit={
+  def createImage(jsonLoc:String):Unit={
     val mytable=AllenAIDataConversion.
       allenAITableToMyTable(
         AllenAIDataConversion.jsonTocaseClasses(
-          AllenAIDataConversion.jsonToString(jsonloc
+          AllenAIDataConversion.jsonToString(jsonLoc
           )
         )
       )
@@ -28,7 +28,7 @@ class WordMergeTestDraw extends FunSpec{
       case Some(propertable)=>{
         val interimtable=CombineWords.wordMergedTable(propertable)
         //drawing image
-        val sourceimage = new File(jsonloc.substring(0,jsonloc.length-5)+".png");
+        val sourceimage = new File(jsonLoc.substring(0,jsonLoc.length-5)+".png");
         val original = ImageIO.read(sourceimage);
         val newimage = new BufferedImage(original.getWidth(), original.getHeight(), BufferedImage.TYPE_INT_RGB);
         val graph=newimage.createGraphics()
@@ -37,7 +37,7 @@ class WordMergeTestDraw extends FunSpec{
         interimtable.textsegments.foreach(x=>graph.draw(new java.awt.Rectangle(
           x.bb.x1.toInt,x.bb.y1.toInt,(x.bb.x2-x.bb.x1).toInt,(x.bb.y2-x.bb.y1).toInt)))
         graph.dispose()
-        ImageIO.write(newimage,"png",new File(jsonloc.substring(0,jsonloc.length-5)+"-mergedwordmedian.png"))
+        ImageIO.write(newimage,"png",new File(jsonLoc.substring(0,jsonLoc.length-5)+"-mergedwordmedian.png"))
       }
       case None=>{println ("could not merge words in the table");return}
     }
@@ -77,8 +77,8 @@ class WordMergeTestDraw extends FunSpec{
       //val alljsons=DataLocation.recursiveListFiles(new File("/Users/schoudhury/com-sc-papers/nlp-data/"),"(?=.*Table)(?=.*json)".r)
       //println(alljsons.length)
       //alljsons.foreach(x=>{println(x.getAbsolutePath);createImage(x.getAbsolutePath)})
-      val jsonLoc=DataLocation.jsonloc
-      val imageLoc=DataLocation.imageloc
+      val jsonLoc=DataLocation.jsonLoc
+      val imageLoc=DataLocation.imageLoc
       createImage(jsonLoc,imageLoc)
 
     }
