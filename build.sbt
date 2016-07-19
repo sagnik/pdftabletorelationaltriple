@@ -12,6 +12,8 @@ crossScalaVersions := Seq("2.11.7", "2.10.5")
   
     
 libraryDependencies ++= Seq(
+  //pdfparser for graphics paths
+  "edu.psu.sagnik.research" %% "pdsimplifyparser" % "0.0.2" exclude("javax.jms", "jms") exclude("com.sun.jdmk", "jmxtools") exclude("com.sun.jmx", "jmxri"),
   //jackson for json
   "org.json4s" %% "json4s-native" % "3.2.11",
   "org.json4s" %% "json4s-jackson" % "3.2.10",

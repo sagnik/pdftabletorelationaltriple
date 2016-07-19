@@ -15,7 +15,7 @@ class RowColPredictionTest extends FunSpec {
           AllenAIDataConversion.jsonTocaseClasses(
             AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
-          )
+          ),DataLocation.pdfLoc
         )
       mytable match {
         case Some(propertable) => {
@@ -26,7 +26,7 @@ class RowColPredictionTest extends FunSpec {
           println(s"bounding box: ${table.bb}")
           table.cells.foreach(x => println(s"cell: startrow: ${x.startRow}, startcol: ${x.startCol}" +
             s"content: ${x.tg.content}"))
-          assert(table.cells.length==interimtable.textsegments.length)
+          assert(table.cells.length==interimtable.textSegments.length)
         }
         case None => assert(false)
       }

@@ -29,14 +29,14 @@ class HeaderPathTestBatch extends FunSpec {
         AllenAIDataConversion.jsonTocaseClasses(
           AllenAIDataConversion.jsonToString(jsonLoc
           )
-        )
+        ),DataLocation.pdfLoc
       )
     implicit val formats = org.json4s.DefaultFormats
     mytable match {
       case Some(propertable) => {
         val interimtable = CombineWords.wordMergedTable(propertable)
         val table = CellRenaming.produceRowColNumbers(interimtable)
-        if(table.cells.length!=interimtable.textsegments.length)
+        if(table.cells.length!=interimtable.textSegments.length)
           println("progressing with possible errors")
         TabletoWFT.headerPathstoDataCells(table) match {
           case Some(wft) => {

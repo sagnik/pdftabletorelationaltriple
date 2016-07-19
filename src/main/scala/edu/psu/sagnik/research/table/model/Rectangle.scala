@@ -17,6 +17,8 @@ object Rectangle {
       r1!=r2 && r1.x1 <= r2.x2 && r2.x1 <= r1.x2 && r1.y1 <= r2.y2 && r2.y1 <= r1.y2
   }
 
+  def rectInside(in:Rectangle,out:Rectangle):Boolean = in.x1>=out.x1 && in.y1>=out.y1 && in.x2<=out.x2 && in.y2<=out.y2
+
   //a bit of caution: this works only for axes parallel rectangles.
   // That suffice for our purpose, but this isn't a generic method.
   def rectDistance(r1:Rectangle,r2:Rectangle):Float={
@@ -26,5 +28,7 @@ object Rectangle {
       val dx2=if (r1.x1>r2.x2) r1.x1-r2.x2 else 0
       dx1+dx2+dy1+dy2
     }
+
+
 
 }

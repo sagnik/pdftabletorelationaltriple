@@ -11,10 +11,18 @@ object DataLocation {
   //val jsonLoc = "src/test/resources/jsons/10.1.1.106.5870-Table-4.json"
   //val jsonLoc = "src/test/resources/jsons/10.1.1.159.3090-Table-7.json"
   //val jsonLoc = "src/test/resources/jsons/N10-1104-Table-1.json"
-  val b="N10-1104-Table-1"
-  val baseDir="src/test/resources/jsons/"
-  val jsonLoc=baseDir+b+".json"
-  val imageLoc=baseDir+b+".png"
+  val baseFile="N10-1104"
+  val tableID="-Table-1"
+  val baseJsonDir="src/test/resources/jsons/"
+  val basePDir="src/test/resources/pdfs/"
+  val baseSVGDir="src/test/resources/svgs/"
+
+  val jsonLoc=baseJsonDir+baseFile+tableID+".json"
+  val pdfLoc=basePDir+baseFile+".pdf"
+  val imageLoc=baseJsonDir+baseFile+tableID+".png"
+
+  val svgLoc=baseSVGDir+baseFile+tableID+".svg"
+
 
   import scala.util.matching.Regex
   def recursiveListFiles(f: File, r: Regex): Array[File] = {

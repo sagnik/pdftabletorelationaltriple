@@ -11,15 +11,15 @@ object CellRenaming {
   def produceRowColNumbers(itable:IntermediateTable):Table={
 
     val debug=false
-    //println(itable.textsegments.length)
-    val candidatecells=itable.textsegments.filterNot(x=>
-      hitsRightExists(x,itable.textsegments)||
-        hitsDownExists(x,itable.textsegments))
+    //println(itable.textSegments.length)
+    val candidatecells=itable.textSegments.filterNot(x=>
+      hitsRightExists(x,itable.textSegments)||
+        hitsDownExists(x,itable.textSegments))
 
     if (debug) {println(s"candidates ${candidatecells}")}
 
     val lowerbottomcell={
-      if (candidatecells.isEmpty) itable.textsegments(0)
+      if (candidatecells.isEmpty) itable.textSegments(0)
       if (candidatecells.length==1)
         candidatecells(0)
       else candidatecells.sortWith(_.bb.x2>_.bb.x2)(0)
@@ -28,13 +28,13 @@ object CellRenaming {
     if (debug) {println(s"lower bottom cell: ${lowerbottomcell.content}")}
 
     val tablecells=roWColRecursive(List(UnClassifiedCell(0,0,lowerbottomcell))
-        ,List(UnClassifiedCell(0,0,lowerbottomcell)),itable.textsegments)
+        ,List(UnClassifiedCell(0,0,lowerbottomcell)),itable.textSegments)
 
     val maxrow=tablecells.sortWith(_.startRow>_.startRow)(0).startRow
     val maxcol=tablecells.sortWith(_.startCol>_.startCol)(0).startCol
     val modtablecells=tablecells.map(x=>x.copy(startRow = maxrow-x.startRow,startCol = maxcol-x.startCol))
 
-    Table(itable.pageno,itable.bb,itable.textsegments.map(w=>w.content+" ").mkString,
+    Table(itable.pageNo,itable.bb,itable.textSegments.map(w=>w.content+" ").mkString,
       modtablecells,itable.caption,itable.mention)
 
   }

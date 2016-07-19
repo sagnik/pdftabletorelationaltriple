@@ -17,6 +17,7 @@ or produce a JSON file with the case class schema in model.IntermediateTable. Fo
 see model.AllenAIDataConversion
 */
 
+import edu.psu.sagnik.research.pdsimplify.path.model.PDSegment
 import edu.psu.sagnik.research.table.model.{IntermediateTable, Rectangle, TextGeneric}
 
 
@@ -28,11 +29,11 @@ object CombineWords {
   def A(x:String,y:Rectangle)=TextGeneric(x,y)
 
   def wordMergedTable(table: IntermediateTable): IntermediateTable = table.copy(
-    textsegments = horizontalMerge(table.textsegments,table.pdlines,
+    textSegments = horizontalMerge(table.textSegments,table.pdLines,
     WordMergeHeuristics.mergeThresholdWordMedian))
 
   /* this function will be changed with linear chain CRFs to facilitate merging*/
-  def horizontalMerge(words: Seq[A], pdlines: Option[Seq[Int]],f:Seq[A]=>Float):Seq[A] = {
+  def horizontalMerge(words: Seq[A], pdlines: Option[Seq[PDSegment]], f:Seq[A]=>Float):Seq[A] = {
     val threshold=f(words)+4f //added because we are reducing the original boundaries by 2.
     println(s"The horizontal distance threshold for merging words is ${threshold}")
     merge(words, Nil, threshold)

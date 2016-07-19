@@ -14,20 +14,20 @@ class CritiCalCellTest extends FunSpec {
       val mytable = AllenAIDataConversion.
         allenAITableToMyTable(
           AllenAIDataConversion.jsonTocaseClasses(
-            AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
-            )
-          )
+            AllenAIDataConversion.jsonToString(DataLocation.jsonLoc)
+          ),DataLocation.pdfLoc
         )
+
       mytable match {
-        case Some(propertable) => {
-          val interimtable = CombineWords.wordMergedTable(propertable)
-          val table = CellRenaming.produceRowColNumbers(interimtable)
+        case Some(properTable) => {
+          val interimTable = CombineWords.wordMergedTable(properTable)
+          val table = CellRenaming.produceRowColNumbers(interimTable)
           println(s"caption: ${table.caption}")
           println(s"mention: ${table.context}")
           println(s"bounding box: ${table.bb}")
           table.cells.foreach(x => println(s"cell: startrow: ${x.startRow}, startcol: ${x.startCol}" +
             s"content: ${x.tg.content}"))
-          //assert(table.cells.length == interimtable.textsegments.length)
+          //assert(table.cells.length == interimtable.textSegments.length)
           CriticalCell.getCriticalCell(table) match {
             case Some(criticalcell)=> println (s"the critical cell for the table is\n" +
               s"cell content: ${criticalcell.tg.content} startrow: ${criticalcell.startRow} startcol: ${criticalcell.startCol}")

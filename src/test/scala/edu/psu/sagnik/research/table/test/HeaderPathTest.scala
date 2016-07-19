@@ -17,7 +17,7 @@ class HeaderPathTest extends FunSpec {
           AllenAIDataConversion.jsonTocaseClasses(
             AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
-          )
+          ),DataLocation.pdfLoc
         )
       mytable match {
         case Some(propertable) => {
@@ -25,8 +25,8 @@ class HeaderPathTest extends FunSpec {
           val table = CellRenaming.produceRowColNumbers(interimtable)
           //table.cells.foreach{x=>println(x.tg.content,x.startRow,x.startCol)}
 
-          if(table.cells.length!=interimtable.textsegments.length)
-            println(s"high error probability: ${table.cells.length}, ${interimtable.textsegments.length}")
+          if(table.cells.length!=interimtable.textSegments.length)
+            println(s"high error probability: ${table.cells.length}, ${interimtable.textSegments.length}")
           TabletoWFT.headerPathstoDataCells(table) match {
             case Some(wft)=> {
               /*scala.tools.nsc.io.File(DataLocation.jsonLoc.split(".json")(0)+"-wft.json")

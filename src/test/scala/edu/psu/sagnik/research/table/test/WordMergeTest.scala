@@ -16,7 +16,7 @@ class WordMergeTest extends FunSpec{
           AllenAIDataConversion.jsonTocaseClasses(
             AllenAIDataConversion.jsonToString(DataLocation.jsonLoc
             )
-          )
+          ),DataLocation.pdfLoc
         )
       mytable match{
         case Some(propertable)=>{
@@ -24,7 +24,7 @@ class WordMergeTest extends FunSpec{
           println(s"caption: ${interimtable.caption}")
           println(s"mention: ${interimtable.mention}")
           println(s"bounding box: ${interimtable.bb}")
-          interimtable.textsegments.foreach(x=>println(s"merged words: ${x.content} bb: ${x.bb}"))
+          interimtable.textSegments.foreach(x=>println(s"merged words: ${x.content} bb: ${x.bb}"))
         }
         case None=>assert(false)
       }

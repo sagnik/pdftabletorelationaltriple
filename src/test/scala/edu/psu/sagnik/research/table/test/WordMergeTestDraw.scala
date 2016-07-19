@@ -22,7 +22,7 @@ class WordMergeTestDraw extends FunSpec{
         AllenAIDataConversion.jsonTocaseClasses(
           AllenAIDataConversion.jsonToString(jsonLoc
           )
-        )
+        ),DataLocation.pdfLoc
       )
     mytable match{
       case Some(propertable)=>{
@@ -34,7 +34,7 @@ class WordMergeTestDraw extends FunSpec{
         val graph=newimage.createGraphics()
         graph.drawImage(original,0,0,null)
         graph.setColor(Color.GREEN)
-        interimtable.textsegments.foreach(x=>graph.draw(new java.awt.Rectangle(
+        interimtable.textSegments.foreach(x=>graph.draw(new java.awt.Rectangle(
           x.bb.x1.toInt,x.bb.y1.toInt,(x.bb.x2-x.bb.x1).toInt,(x.bb.y2-x.bb.y1).toInt)))
         graph.dispose()
         ImageIO.write(newimage,"png",new File(jsonLoc.substring(0,jsonLoc.length-5)+"-mergedwordmedian.png"))
@@ -50,7 +50,7 @@ class WordMergeTestDraw extends FunSpec{
         AllenAIDataConversion.jsonTocaseClasses(
           AllenAIDataConversion.jsonToString(jsonLoc
           )
-        )
+        ),DataLocation.pdfLoc
       )
     mytable match{
       case Some(properTable)=>{
@@ -62,7 +62,7 @@ class WordMergeTestDraw extends FunSpec{
         val graph=newimage.createGraphics()
         graph.drawImage(original,0,0,null)
         graph.setColor(Color.GREEN)
-        interimTable.textsegments.foreach(x=>graph.draw(new java.awt.Rectangle(
+        interimTable.textSegments.foreach(x=>graph.draw(new java.awt.Rectangle(
           x.bb.x1.toInt,x.bb.y1.toInt,(x.bb.x2-x.bb.x1).toInt,(x.bb.y2-x.bb.y1).toInt)))
         graph.dispose()
         ImageIO.write(newimage,"png",new File(imageLoc.substring(0,imageLoc.length-4)+"-wordmerged.png"))

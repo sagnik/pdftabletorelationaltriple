@@ -1,5 +1,7 @@
 package edu.psu.sagnik.research.table.model
 
+import edu.psu.sagnik.research.pdsimplify.path.model.{PDLine, PDSegment, PathStyle}
+
 
 /**
  * Created by schoudhury on 8/13/15.
@@ -20,16 +22,19 @@ case class DataCell(startRow:Int,startCol:Int,tg:TextGeneric,rowpath:Seq[RowHead
 
 case class AllenAIWord(Rotation: Int, Text: String, TextBB: Seq[Float])
 
-case class AllenAITable(Caption: Option[String], CaptionBB: Option[Seq[Int]], Page: Option[Int],
-                        ImageBB: Option[Seq[Int]], ImageText: Option[Seq[AllenAIWord]], Mention: Option[String])
+case class AllenAITable(Caption: Option[String], CaptionBB: Option[Seq[Int]], Page: Int,
+                        ImageBB: Seq[Int], ImageText: Option[Seq[AllenAIWord]],
+                        Mention: Option[String], DPI:Int, Height:Int, Width:Int)
 
 //we must have bb and text segments. Others can be skipped
 case class IntermediateTable(bb: Rectangle,
-                             textsegments: Seq[TextGeneric],
+                             textSegments: Seq[TextGeneric],
                              caption: Option[String],
                              mention: Option[String],
-                             pageno:Int,
-                             pdlines: Option[Seq[Int]]) //this will be later replaced with PDLines from pdfxtk.
+                             pageNo:Int,
+                             pdLines: Option[Seq[PDSegment]],
+                             pageHeight: Int,
+                             pageWidth: Int) //this will be later replaced with PDLines from pdfxtk.
 
 case class Table(pageNumber:Int, //page number
   bb: Rectangle,
