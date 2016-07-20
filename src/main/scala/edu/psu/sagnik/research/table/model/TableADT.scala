@@ -33,8 +33,8 @@ case class IntermediateTable(bb: Rectangle,
                              mention: Option[String],
                              pageNo:Int,
                              pdLines: Option[Seq[PDSegment]],
-                             pageHeight: Int,
-                             pageWidth: Int) //this will be later replaced with PDLines from pdfxtk.
+                             pageHeight: Float,
+                             pageWidth: Float) //this will be later replaced with PDLines from pdfxtk.
 
 case class Table(pageNumber:Int, //page number
   bb: Rectangle,

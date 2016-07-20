@@ -15,39 +15,39 @@ import scala.reflect.io.File
 
 class TableSVGTest extends FunSpec {
 
-  def segmentToString(s:PDSegment,h:Float,tableBB:Rectangle):String=s match{
+  def segmentToString(s:PDSegment):String=s match{
     case s: PDLine =>
       "M " +
-        (s.startPoint.x).toString + "," + (h - s.startPoint.y - tableBB.y1).toString +
+        s.startPoint.x.toString + "," +s.startPoint.y.toString +
         " L " +
-        (s.endPoint.x).toString + "," + (h - s.endPoint.y -tableBB.y1).toString+
+        s.endPoint.x.toString + "," + s.endPoint.y.toString+
         " "
     case s: PDCurve =>
       "M " +
-        (s.startPoint.x - tableBB.x1).toString + "," + (h - s.startPoint.y - tableBB.y1).toString +
+        s.startPoint.x.toString + "," + s.startPoint.y.toString +
         " C " +
-        (s.controlPoint1.x - tableBB.x1).toString + "," + (h - s.controlPoint1.y - tableBB.y1).toString + " "+
-        (s.controlPoint2.x - tableBB.x1).toString + "," + (h - s.controlPoint2.y - tableBB.y1).toString + " "+
-        (s.endPoint.x - tableBB.x1).toString + "," + (h - s.endPoint.y - tableBB.y1).toString+
+        s.controlPoint1.x.toString + "," + s.controlPoint1.y.toString + " "+
+        s.controlPoint2.x.toString + "," + s.controlPoint2.y.toString + " "+
+        s.endPoint.x.toString + "," + s.endPoint.y.toString+
         " "
     case _ => ""
 
   }
 
   val defaultPathStyle="style=\"fill:none;" +
-    "stroke:#000000;stroke-width:3.76389003;" +
+    "stroke:#000000;stroke-width:1.00000;" +
     "stroke-linecap:butt;stroke-linejoin:miter;" +
     "stroke-miterlimit:10;stroke-dasharray:none;" +
     "stroke-opacity:1\""
 
-  def getPathDString(p:PDSegment,h:Float,tableBB:Rectangle):String={
+  def getPathDString(p:PDSegment):String={
     val dStringStart=" d=\""
-    val segmentStrings=segmentToString(p,h,tableBB)
+    val segmentStrings=segmentToString(p)
     val dStringEnd="\""
     dStringStart+segmentStrings+dStringEnd
   }
-  def getSvgString[A](p:A,w:Float,h:Float,tableBB:Rectangle):String=p match{
-    case p: PDSegment => "<path "+getPathDString(p,h,tableBB)+" "+defaultPathStyle+" />"
+  def getSvgString[A](p:A):String=p match{
+    case p: PDSegment => "<path "+getPathDString(p)+" "+defaultPathStyle+" />"
     case p: PDChar => ???
   }
 
@@ -63,6 +63,7 @@ class TableSVGTest extends FunSpec {
       myTable match {
         case Some(properTable) =>
           val pdLines=properTable.pdLines.getOrElse(Seq.empty[PDSegment])
+          //pdLines.foreach(println)
           val svgWidth=properTable.bb.x2 - properTable.bb.x1
           val svgHeight=properTable.bb.y2 - properTable.bb.y1
           val pageHeight=properTable.pageHeight
@@ -75,7 +76,7 @@ class TableSVGTest extends FunSpec {
             "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">"+
             "\n"
 
-          val content= pdLines.map(x => getSvgString(x,pageWidth,pageHeight,properTable.bb)).foldLeft("")((a, b) => a + "\n" + b) + "\n"
+          val content= pdLines.map(x => getSvgString[PDSegment](x)).foldLeft("")((a, b) => a + "\n" + b) + "\n"
 
           val svgEnd = "\n</svg>"
           File(DataLocation.svgLoc).writeAll(svgStart + content + svgEnd)
