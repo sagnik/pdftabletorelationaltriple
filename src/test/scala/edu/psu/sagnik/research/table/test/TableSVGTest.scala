@@ -52,7 +52,7 @@ class TableSVGTest extends FunSpec {
   }
 
   describe("creates an SVG for the table with the paths") {
-    it("should print the critical cell from a table") {
+    it("should create an SVG for the table with the paths") {
       val myTable = AllenAIDataConversion.
         allenAITableToMyTable(
           AllenAIDataConversion.jsonTocaseClasses(
@@ -80,8 +80,9 @@ class TableSVGTest extends FunSpec {
 
           val svgEnd = "\n</svg>"
           File(DataLocation.svgLoc).writeAll(svgStart + content + svgEnd)
+          println(s"written svg file at ${DataLocation.svgLoc}")
 
-        case None => assert(false)
+        case _ => assert(false)
       }
 
     }
