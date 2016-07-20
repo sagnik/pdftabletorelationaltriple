@@ -26,7 +26,7 @@ object AllenAIDataConversion {
 
   protected implicit class FloatEquality(val a: Float) extends AnyVal {
     @inline def isEqualFloat(b: Float): Boolean =
-      math.abs(a - b) <= 0.00001
+      math.abs(a - b) <= 0.00001f
 
     @inline def isRasterEqualFloat(b: Float): Boolean =
       math.abs(a - b) <= 1f
@@ -69,7 +69,7 @@ object AllenAIDataConversion {
       tableBBVals(2),
       tableBBVals(3)
     )
-    //println(s"raster BB: ${im.bb}, table BB: ${tableBB} isinside ${Rectangle.rectInside(rasterBB,tableBB)}")
+    println(s"raster BB: ${im.bb}, table BB: ${tableBB} is inside ${Rectangle.rectInside(rasterBB,tableBB)}")
     Rectangle.rectInside(rasterBB,tableBB)
   }
 
@@ -86,10 +86,11 @@ object AllenAIDataConversion {
       tableBBVals(2),
       tableBBVals(3)
     )
+    //println(s"path BB: ${segmentBB}, table BB: ${tableBB} is inside ${Rectangle.rectInside(segmentBB,tableBB)}")
     Rectangle.rectInside(segmentBB,tableBB)
   }
 
-  def transformPDSegment(pdSegment:PDSegment,bb:Seq[Float],pageHeight:Float)=pdSegment match{
+  def transformPDSegment(pdSegment:PDSegment,bb:Seq[Float],pageHeight:Float):PDSegment=pdSegment match{
     case pdSegment:PDLine =>
       val startPoint=new Point2D.Float(pdSegment.startPoint.x-bb.head,pageHeight-pdSegment.startPoint.y-bb(1))
       val endPoint=new Point2D.Float(pdSegment.endPoint.x-bb.head,pageHeight-pdSegment.endPoint.y-bb(1))
@@ -114,7 +115,7 @@ object AllenAIDataConversion {
 
   }
 
-  def pDLinefromPoints(sP:Point2D.Float,eP:Point2D.Float,bb:Seq[Float], pageHeight:Float)={
+  def pDLinefromPoints(sP:Point2D.Float,eP:Point2D.Float,bb:Seq[Float], pageHeight:Float):PDSegment={
     val startPoint=new Point2D.Float(sP.x - bb.head, pageHeight - sP.y - bb(1))
     val endPoint=new Point2D.Float(eP.x - bb.head,pageHeight- eP.y-bb(1))
     PDLine(
@@ -135,28 +136,23 @@ object AllenAIDataConversion {
     val pdDoc=PDDocument.load(new File(pdLoc))
     val simplePage=ProcessDocument(pdDoc).pages(pageNumber-1)
     pdDoc.close()
+    //println(s"[straight segments]: ${simplePage.gPaths.flatMap(_.subPaths).flatMap(_.segments).count(isStraightLine(_))}")
 
     val (pageHeight,pageWidth)= (simplePage.bb.y2-simplePage.bb.y1,simplePage.bb.x2-simplePage.bb.x1)
-    Some(
-      (
-        for {
-          paths <- simplePage.gPaths
-          subPaths <- paths.subPaths if !subPaths.fromReCommand
-          segments <- subPaths.segments
-          if isStraightLine(segments) &&  isWithinTable(segments,bb,pageHeight)
-        }
-          yield transformPDSegment(segments,bb,pageHeight)
-        )
+    val pdLines=
+      (for {
+        paths <- simplePage.gPaths
+        subPaths <- paths.subPaths
+        segments <- subPaths.segments
+        if isStraightLine(segments) &&  isWithinTable(segments,bb,pageHeight)
+      }
+        yield transformPDSegment(segments,bb,pageHeight)) ++ (for {
+        raster <- simplePage.rasters
+        if isStraightLine(raster) &&  isWithinTable(raster,bb,pageHeight)
+      } yield transformPDSegment(raster,bb,pageHeight)
+        ).flatten
 
-        ++
-        (
-          for {
-            raster <- simplePage.rasters
-            if isStraightLine(raster) &&  isWithinTable(raster,bb,pageHeight)
-          } yield transformPDSegment(raster,bb,pageHeight)
-          ).flatten
-
-    )
+    if (pdLines.nonEmpty) Some(pdLines) else None
   }
 
   def getPageHeightWidth(pdLoc:String,pageNumber:Int)={
@@ -191,8 +187,10 @@ object AllenAIDataConversion {
         pageNo=atable.Page,
         pdLines=getPDLines(pdLoc,tableBB,atable.Page),
         pageHeight=pageHeight,
-        pageWidth=pageWidth
+        pageWidth=pageWidth,
+        dpi=atable.DPI
       )
+      //println(imTable.pdLines)
       if (imTable.textSegments.nonEmpty) Some(imTable)
       else None
 

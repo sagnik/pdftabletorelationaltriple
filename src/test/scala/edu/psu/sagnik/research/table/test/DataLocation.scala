@@ -11,16 +11,17 @@ object DataLocation {
   //val jsonLoc = "src/test/resources/jsons/10.1.1.106.5870-Table-4.json"
   //val jsonLoc = "src/test/resources/jsons/10.1.1.159.3090-Table-7.json"
   //val jsonLoc = "src/test/resources/jsons/N10-1104-Table-1.json"
-  val baseFile="10.1.1.10.4597"//"N10-1104"
+  val baseFile="10.1.1.194.433"//"N10-1104"
   val tableBase="-Table-"
-  val tableID=tableBase+"3"
+  val tableID=tableBase+"1"
   val baseJsonDir="src/test/resources/jsons/"
   val basePDir="src/test/resources/pdfs/"
   val baseSVGDir="src/test/resources/svgs/"
+  val baseImageDir="src/test/resources/images/"
 
   val jsonLoc=baseJsonDir+baseFile+tableID+".json"
   val pdfLoc=basePDir+baseFile+".pdf"
-  val imageLoc=baseJsonDir+baseFile+tableID+".png"
+  val imageLoc=baseImageDir+baseFile+tableID+".png"
 
   val svgLoc=baseSVGDir+baseFile+tableID+".svg"
 
