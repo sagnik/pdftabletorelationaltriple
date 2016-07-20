@@ -137,7 +137,7 @@ object AllenAIDataConversion {
           caption=atable.Caption,
           mention=atable.Mention,
           pageNo=atable.Page,
-          pdLines=getPDLines(pdLoc,tableBB,atable.Page), //TODO: Can integrate PDLines that are inside the table later
+          pdLines=getPDLines(pdLoc,tableBB,atable.Page),
           pageHeight=pageHeight,
           pageWidth=pageWidth
         )
