@@ -6,10 +6,8 @@ version := "0.0.1"
 
 javacOptions += "-Xlint:unchecked"
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.8"
 
-crossScalaVersions := Seq("2.11.7", "2.10.5")
-  
     
 libraryDependencies ++= Seq(
   //pdfparser for graphics paths
