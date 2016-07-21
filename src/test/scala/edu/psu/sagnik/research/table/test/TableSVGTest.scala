@@ -62,7 +62,7 @@ class TableSVGTest extends FunSpec {
 
       myTable match {
         case Some(properTable) =>
-          val pdLines=properTable.pdLines.getOrElse(Seq.empty[PDSegment])
+          val pdLines=properTable.pdLines
           //pdLines.foreach(println)
           val svgWidth=properTable.bb.x2 - properTable.bb.x1
           val svgHeight=properTable.bb.y2 - properTable.bb.y1

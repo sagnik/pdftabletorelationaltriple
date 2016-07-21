@@ -139,20 +139,19 @@ object AllenAIDataConversion {
     //println(s"[straight segments]: ${simplePage.gPaths.flatMap(_.subPaths).flatMap(_.segments).count(isStraightLine(_))}")
 
     val (pageHeight,pageWidth)= (simplePage.bb.y2-simplePage.bb.y1,simplePage.bb.x2-simplePage.bb.x1)
-    val pdLines=
-      (for {
-        paths <- simplePage.gPaths
-        subPaths <- paths.subPaths
-        segments <- subPaths.segments
-        if isStraightLine(segments) &&  isWithinTable(segments,bb,pageHeight)
-      }
-        yield transformPDSegment(segments,bb,pageHeight)) ++ (for {
-        raster <- simplePage.rasters
-        if isStraightLine(raster) &&  isWithinTable(raster,bb,pageHeight)
-      } yield transformPDSegment(raster,bb,pageHeight)
-        ).flatten
 
-    if (pdLines.nonEmpty) Some(pdLines) else None
+    (for {
+      paths <- simplePage.gPaths
+      subPaths <- paths.subPaths
+      segments <- subPaths.segments
+      if isStraightLine(segments) &&  isWithinTable(segments,bb,pageHeight)
+    }
+      yield transformPDSegment(segments,bb,pageHeight)) ++ (for {
+      raster <- simplePage.rasters
+      if isStraightLine(raster) &&  isWithinTable(raster,bb,pageHeight)
+    } yield transformPDSegment(raster,bb,pageHeight)
+      ).flatten
+
   }
 
   def getPageHeightWidth(pdLoc:String,pageNumber:Int)={

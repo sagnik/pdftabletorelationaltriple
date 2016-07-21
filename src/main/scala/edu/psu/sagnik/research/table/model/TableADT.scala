@@ -32,7 +32,7 @@ case class IntermediateTable(bb: Rectangle,
                              caption: Option[String],
                              mention: Option[String],
                              pageNo:Int,
-                             pdLines: Option[Seq[PDSegment]],
+                             pdLines: Seq[PDSegment],
                              pageHeight: Float,
                              pageWidth: Float,
                              dpi:Int)
