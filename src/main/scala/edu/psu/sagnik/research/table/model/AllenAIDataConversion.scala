@@ -174,10 +174,10 @@ object AllenAIDataConversion {
           A(
             w.Text,
             Rectangle(
-              w.TextBB.head - tableBB.head+2, //shortening the table
-              w.TextBB(1) - tableBB(1)+2,
-              w.TextBB(2) - tableBB.head-2,
-              w.TextBB(3) - tableBB(1)-2
+              w.TextBB.head - tableBB.head,//+2, //shortening the table
+              w.TextBB(1) - tableBB(1),//+2,
+              w.TextBB(2) - tableBB.head,//-2,
+              w.TextBB(3) - tableBB(1)//-2
             )
           )),
 

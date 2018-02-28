@@ -71,9 +71,9 @@ object CombineWords {
   def shouldBeMerged(x:A,y:A,threshold:Float,pdLines:Seq[PDSegment]):Boolean={
     val (left,right)=if (y.bb.x2<x.bb.x1) (y,x) else (x,y)
     //println(s"${left.content} and ${right.content} separated by a line? ${lineIntersects(left,right,pdLines)}")
-    isSubSuperscript(left,right)||(
+    (
     right.bb.x1 - left.bb.x2 < threshold &&
-      scala.math.abs(y.bb.y1 - x.bb.y1) <= 2) && //to ensure that the merged words are from the same vertical line
+      scala.math.abs(left.bb.y1 - right.bb.y1) <= 2) && //to ensure that the merged words are from the same vertical line
       !lineIntersects(left,right,pdLines)
   }
 
@@ -87,7 +87,8 @@ object CombineWords {
     val sortedwords = words.sortWith(_.bb.x1 < _.bb.x1)
     val word=sortedwords.find(y=>x!=y && shouldBeMerged(x,y,threshold,pdLines))
     word match{
-      case Some(matchedword)=>Some((mergedWord(x,matchedword),matchedword))
+      case Some(matchedword)=>{//System.out.println(s"merging ${x} with ${matchedword}");
+        Some((mergedWord(x,matchedword),matchedword))}
       case None=>None
     }
   }

@@ -19,12 +19,21 @@ object DataLocation {
   val baseSVGDir="/home/sagnik/data/nlp-table-data/randsvgs/"//"src/test/resources/svgs/"
   val baseImageDir="/home/sagnik/data/nlp-table-data/randpngs/"//"src/test/resources/images/"
 
-  val jsonLoc=baseJsonDir+baseFile+tableID+".json"
-  val pdfLoc=basePDir+baseFile+".pdf"
-  val imageLoc=baseImageDir+baseFile+tableID+".png"
+//  val jsonLoc=baseJsonDir+baseFile+tableID+".json"
+//  val pdfLoc=basePDir+baseFile+".pdf"
+//  val imageLoc=baseImageDir+baseFile+tableID+".png"
+//
+//  val svgLoc=baseSVGDir+baseFile+tableID+".svg"
 
-  val svgLoc=baseSVGDir+baseFile+tableID+".svg"
+  val jsonLoc="/home/sagnik/aida-data/testing/test-1/test-1_original-table-0.json"
+  val pdfLoc="/home/sagnik/aida-data/testing/test-1/test-1_ocr.pdf"
+  val imageLoc="/home/sagnik/aida-data/testing/test-1/test-1_original-table-0.png"
+  val svgLoc="/home/sagnik/aida-data/testing/test-1/test-1_original-table-0.svg"
 
+//  val jsonLoc="/home/sagnik/aida-data/testing/test-2/test-2_original-table-0.json"
+//  val pdfLoc="/home/sagnik/aida-data/testing/test-2/test-2_ocr.pdf"
+//  val imageLoc="/home/sagnik/aida-data/testing/test-2/test-2_original-table-0.png"
+//  val svgLoc="/home/sagnik/aida-data/testing/test-2/test-2_original-table-0.svg"
 
   import scala.util.matching.Regex
   def recursiveListFiles(f: File, r: Regex): Array[File] = {

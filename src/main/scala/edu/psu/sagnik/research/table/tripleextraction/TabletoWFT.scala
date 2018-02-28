@@ -21,7 +21,10 @@ object TabletoWFT {
     Seq.empty[A],Seq.empty[B],Seq.empty[C])
 
     CriticalCell.getCriticalCell(table) match {
-      case Some(criticalcell) => {Some(
+      case Some(criticalcell) => {
+        System.out.println(s"critical cell: ${criticalcell.tg.content}")
+        //System.exit(1)
+        Some(
         table.cells.foldLeft(wft){
           case (wft@WFT(table.pageNumber,table.bb,table.content,table.caption,table.context, rhcs, chcs, dcs), cell) => {
             //the ordering is important here.

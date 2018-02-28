@@ -21,7 +21,11 @@ class HeaderPathTest extends FunSpec {
         )
       mytable match {
         case Some(propertable) => {
+          propertable.textSegments.foreach(x => System.out.print(s"${x.content}, ${x.bb}\n"))
+          System.out.println("---------------------------------------------")
           val interimtable = CombineWords.wordMergedTable(propertable)
+          interimtable.textSegments.foreach(x => System.out.print(s"${x.content}, ${x.bb}\n"))
+
           val table = CellRenaming.produceRowColNumbers(interimtable)
           //table.cells.foreach{x=>println(x.tg.content,x.startRow,x.startCol)}
 
